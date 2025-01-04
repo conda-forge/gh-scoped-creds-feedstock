@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/gh-scoped-creds-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/gh-scoped-creds-{{ version }}.tar.gz
   sha256: b2595929b86d39d67172f98747de5afb722ce66483823e09aeaf65f1c7b02b87
 
 build:
@@ -15,14 +15,14 @@ build:
     - gh-scoped-creds = gh_scoped_creds:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - requests
 
 test:
@@ -34,6 +34,7 @@ test:
     - gh-scoped-creds --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/yuvipanda/gh-scoped-creds
